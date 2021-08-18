@@ -1,0 +1,103 @@
+# 应用名称
+spring:
+  application:
+    name: dynamic_main
+  autoconfigure:
+    #自动化配置 例外处理
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/sysam?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
+        slave_1:
+          url: jdbc:mysql://localhost:3306/cas?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      #连接池配置
+      #初始化连接池的连接数量 大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      #配置获取连接等待超时的时间
+      max-wait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      # 是否缓存preparedStatement，也就是PSCache  官方建议MySQL下建议关闭   个人建议如果想用SQL防火墙 建议打开
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 5000
+      #3.基础监控配置
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        #设置不统计哪些URL
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        session-stat-enable: true
+        session-stat-max-count: 100
+      stat-view-servlet:
+        enabled: true #是否启用StatViewServlet（监控页面）
+        url-pattern: /druid/*
+        reset-enable: true
+        #设置监控页面的登录名和密码
+      #        login-username: admin
+      #        login-password: admin
+      #        allow: ""
+      jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+server:
+  port: 8089
+  servlet:
+    context-path: /
+# 日志级别及存放位置
+logging:
+  level:
+    root: info
+    com.example.dynamic_test.dao: debug
+  file:
+    path:  ./logs
+
+#mybatis-plus配置
+mybatis-plus:
+  configuration:
+    #开启驼峰
+    map-underscore-to-camel-case: true
+    #自动映射model(pojo)
+    auto-mapping-behavior: full
+    #开启日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #xml扫描
+  mapper-locations: classpath*:mybatis/mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+
+
+
+
+
+
+
