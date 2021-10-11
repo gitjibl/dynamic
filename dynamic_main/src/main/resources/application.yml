@@ -1,3 +1,11 @@
+server:
+  port: 9663
+  servlet:
+    context-path: /
+# mapper（sql）日志
+logging:
+  level:
+    com.example.dynamic_test.dao: debug
 # 应用名称
 spring:
   application:
@@ -64,18 +72,6 @@ spring:
       jackson:
         date-format: yyyy-MM-dd HH:mm:ss
         time-zone: GMT+8
-server:
-  port: 8089
-  servlet:
-    context-path: /
-# 日志级别及存放位置
-logging:
-  level:
-    root: info
-    com.example.dynamic_test.dao: debug
-  file:
-    path:  ./logs
-
 #mybatis-plus配置
 mybatis-plus:
   configuration:
@@ -84,7 +80,7 @@ mybatis-plus:
     #自动映射model(pojo)
     auto-mapping-behavior: full
     #开启日志打印
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #xml扫描
   mapper-locations: classpath*:mybatis/mapper/**/*Mapper.xml
   global-config:
