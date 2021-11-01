@@ -29,6 +29,11 @@ spring:
           username: root
           password: 123456
           driver-class-name: com.mysql.jdbc.Driver
+        dm:
+          url: jdbc:dm://127.0.0.1:5236/ZWSYS
+          username: SYSDBA
+          password: SYSDBA
+          driver-class-name: dm.jdbc.driver.DmDriver
     druid:
       #连接池配置
       #初始化连接池的连接数量 大小，最小，最大

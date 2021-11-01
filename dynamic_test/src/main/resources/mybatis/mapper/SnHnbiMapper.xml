@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dynamic_test.dao.SnHnbiMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.dynamic_test.entity.SnHnbi">
+        <result column="HNCD" property="hncd" />
+        <result column="HNNM" property="hnnm" />
+        <result column="BSCD" property="bscd" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        HNCD, HNNM, BSCD
+    </sql>
+
+    <select id="getlist" resultMap="BaseResultMap">
+        select * from ZWSYS.SN_HNBI
+    </select>
+</mapper>
