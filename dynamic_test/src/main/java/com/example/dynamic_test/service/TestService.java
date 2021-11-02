@@ -1,6 +1,7 @@
 package com.example.dynamic_test.service;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.dynamic_test.entity.Test;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 @DS("slave_1")
 public interface TestService extends IService<Test> {
 
+    IPage<Test> getPage();
 }

@@ -1,6 +1,8 @@
 package com.example.dynamic_test.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dynamic_test.entity.SnHnbi;
 import com.example.dynamic_test.service.SnHnbiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class SnHnbiController {
     public List<SnHnbi> getlist(){
         return snHnbiService.getlist();
     }
+
 
 }
 

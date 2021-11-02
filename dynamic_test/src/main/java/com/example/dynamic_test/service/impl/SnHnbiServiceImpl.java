@@ -1,5 +1,8 @@
 package com.example.dynamic_test.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dynamic_test.entity.SnHnbi;
 import com.example.dynamic_test.dao.SnHnbiMapper;
 import com.example.dynamic_test.service.SnHnbiService;
@@ -27,5 +30,8 @@ public class SnHnbiServiceImpl extends ServiceImpl<SnHnbiMapper, SnHnbi> impleme
     @Override
     public List<SnHnbi> getlist() {
         return snHnbiMapper.getlist();
+       
     }
+
+
 }
