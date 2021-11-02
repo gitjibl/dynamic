@@ -51,21 +51,15 @@ public class GeneratorCodeConfig {
         String MOUDLENAME = "dynamic_test";
         //自定义模块名称
 //        String MOUDLENAME = (scanner("模块名"));
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setDbType(DbType.MYSQL);
-        dsc.setDriverName(DRIVER);
-        dsc.setUrl(DATA_URL);
-        dsc.setUsername(USERNAME);
-        dsc.setPassword(PASSWORD);
-
-        AutoGenerator mpg = new AutoGenerator();
-
-        GlobalConfig gc = new GlobalConfig();
         //得到当前项目的路径
         String projectPath = System.getProperty("user.dir");
         //生成文件输出根目录
         String ROOT_DIR = projectPath + "/" + MOUDLENAME + "/src/main/java";
 
+        // 创建代码生成器
+        AutoGenerator mpg = new AutoGenerator();
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
 
         gc.setOpen(false);//生成完成后不弹出文件框
         gc.setOutputDir(ROOT_DIR);//生成文件输出根目录
@@ -83,21 +77,26 @@ public class GeneratorCodeConfig {
         gc.setServiceImplName("%sServiceImpl");
         gc.setControllerName("%sController");
 
+        //数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setDbType(DbType.MYSQL);
+        dsc.setDriverName(DRIVER);
+        dsc.setUrl(DATA_URL);
+        dsc.setUsername(USERNAME);
+        dsc.setPassword(PASSWORD);
+
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        //strategy.setTablePrefix(new String[] { "SYS_" });// 此处可以修改为您的表前缀
-        strategy.setRestControllerStyle(true);
-        strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        /** 如果需要生成getset 注释掉下面配置 **/
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setTablePrefix("");    //绑定表名前缀
-//        strategy.setTablePrefix("sys" + "_");
-        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true); //restful api风格控制器
+        strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略
+        strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
         strategy.setControllerMappingHyphenStyle(true);// 驼峰转连字符
-        strategy.setEntityTableFieldAnnotationEnable(true);// 是否生成实体时，生成字段注解
+        strategy.setEntityTableFieldAnnotationEnable(true);// @TableField:注解用于标识非主键的字段。将数据库列与 JavaBean 中的属性进行映射
+        //trategy.setTablePrefix("sys" + "_"); //绑定表名前缀
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
 
-
+        //包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.example." + MOUDLENAME);
         pc.setController("controller");
@@ -139,6 +138,7 @@ public class GeneratorCodeConfig {
         // 执行生成
         mpg.execute();
     }
+
     /**
      * 自定义配置
      *
