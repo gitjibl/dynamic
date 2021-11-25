@@ -1,6 +1,5 @@
 package com.example.dynamic_test.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -18,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jibl
- * @since 2021-11-02
+ * @since 2021-11-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,62 +27,53 @@ public class SysUser extends Model<SysUser> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "主键id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId("user_id")
+    private String userId;
 
-    @ApiModelProperty(value = "用户名")
-    @TableField("username")
-    private String username;
+    @ApiModelProperty(value = "反反复复")
+    @TableField("user_name")
+    private String userName;
 
-    @ApiModelProperty(value = "密码")
+    @TableField("login_name")
+    private String loginName;
+
     @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "姓名")
-    @TableField("name")
-    private String name;
-
-    @ApiModelProperty(value = "性别  0-女 1-男")
     @TableField("sex")
-    private Integer sex;
+    private String sex;
 
-    @ApiModelProperty(value = "年龄")
-    @TableField("age")
-    private Integer age;
+    @TableField("telephone")
+    private String telephone;
 
-    @ApiModelProperty(value = "电话")
-    @TableField("tel")
-    private String tel;
+    @TableField("status")
+    private String status;
 
-    @ApiModelProperty(value = "邮箱")
-    @TableField("mail")
-    private String mail;
+    @TableField("remark")
+    private String remark;
 
-    @ApiModelProperty(value = "启用状态  0-未启用 1已启用")
-    @TableField("enable")
-    private Integer enable;
+    @TableField("operator")
+    private String operator;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField("createtime")
-    private Date createtime;
+    @TableField("operate_time")
+    private Date operateTime;
 
-    @ApiModelProperty(value = "更新时间")
-    @TableField("updatetime")
-    private Date updatetime;
+    @TableField("operate_ip")
+    private String operateIp;
 
-    @ApiModelProperty(value = "是否删除")
-    @TableField("isdel")
-    private Integer isdel;
+    @TableField("user_extend")
+    private String userExtend;
 
-    @ApiModelProperty(value = "描述")
-    @TableField("describes")
-    private String describes;
+    @TableField("user_extend_one")
+    private String userExtendOne;
+
+    @TableField("user_extend_two")
+    private String userExtendTwo;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 
 }

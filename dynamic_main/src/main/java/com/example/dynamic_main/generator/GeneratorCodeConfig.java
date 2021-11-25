@@ -93,7 +93,6 @@ public class GeneratorCodeConfig {
         pc.setServiceImpl("service.impl");
         pc.setEntity("entity");
         pc.setMapper("dao");
-        mpg.setPackageInfo(pc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
