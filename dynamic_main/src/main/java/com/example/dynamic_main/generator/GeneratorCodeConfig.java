@@ -43,14 +43,13 @@ public class GeneratorCodeConfig {
     public static void main(String[] args) {
         String DRIVER = "com.mysql.cj.jdbc.Driver";
 //        String DATA_URL = "jdbc:mysql://127.0.0.1:3306/cas?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true";
-        String DATA_URL = "jdbc:mysql://localhost:3306/sysam?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8";
+        String DATA_URL = "jdbc:mysql://localhost:3306/el_authority?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8";
         String USERNAME = "root";
         String PASSWORD = "123456";
         String AUTHOR = "jibl";
         //MOUDLENAME 模块名称  sysam_task
-        String MOUDLENAME = "dynamic_test";
         //自定义模块名称
-//        String MOUDLENAME = (scanner("模块名"));
+        String MOUDLENAME = (scanner("模块名"));
         //得到当前项目的路径
         String projectPath = System.getProperty("user.dir");
         //生成文件输出根目录
@@ -68,7 +67,7 @@ public class GeneratorCodeConfig {
         gc.setSwagger2(true); //实体属性 Swagger2 注解
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(true);// XML columList
+        gc.setBaseColumnList(true);// XML columnList
         gc.setDateType(DateType.ONLY_DATE);//指定时间类型Date
         gc.setAuthor(AUTHOR);//生成人
         gc.setMapperName("%sMapper");
@@ -85,6 +84,17 @@ public class GeneratorCodeConfig {
         dsc.setUsername(USERNAME);
         dsc.setPassword(PASSWORD);
 
+        //包配置
+        PackageConfig pc = new PackageConfig();
+//        pc.setParent("com.example." + MOUDLENAME);
+        pc.setParent( scanner("包名"));
+        pc.setController("controller");
+        pc.setService("service");
+        pc.setServiceImpl("service.impl");
+        pc.setEntity("entity");
+        pc.setMapper("dao");
+        mpg.setPackageInfo(pc);
+
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setRestControllerStyle(true); //restful api风格控制器
@@ -96,24 +106,6 @@ public class GeneratorCodeConfig {
         //trategy.setTablePrefix("sys" + "_"); //绑定表名前缀
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
 
-        //包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setParent("com.example." + MOUDLENAME);
-        pc.setController("controller");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        pc.setEntity("entity");
-        pc.setMapper("dao");
-        mpg.setPackageInfo(pc);
-
-        /*InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-rb");
-                this.setMap(map);
-            }
-        };*/
         //xml生成路径
         List<FileOutConfig> focList = new ArrayList<>();
         focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
